@@ -66,6 +66,7 @@
     "@paulmillr/qr": "^0.1.1",
     "@scure/bip32": "^1.3.2",
     "@scure/bip39": "^1.2.1",
+    "@trezor/connect-web": "^9.1.5",
     "ethers": "^6.8.1",
     "idna-uts46-hx": "^5.1.2",
     "next": "14.0.1",

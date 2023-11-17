@@ -4,11 +4,12 @@ import { Dialog, useDialogContext } from "@/libs/ui/dialog/dialog";
 import { useCallback, useState } from "react";
 import { ReadonlyWalletCreatorDialog } from "./readonly";
 import { StandaloneWalletCreatorDialog } from "./standalone";
+import { HardwareWalletCreatorDialog } from "./hardware";
 
 export function WalletCreatorDialog(props: {}) {
   const { opened, close } = useDialogContext().unwrap()
 
-  const [type, setType] = useState<"readonly" | "privateKey">()
+  const [type, setType] = useState<"readonly" | "privateKey" | "hardwareWallet">()
 
   const onWatchonlyClick = useCallback(() => {
     setType("readonly")
@@ -16,6 +17,10 @@ export function WalletCreatorDialog(props: {}) {
 
   const onPrivateKeyClick = useCallback(() => {
     setType("privateKey")
+  }, [])
+
+  const onHardwareWalletClick = useCallback(() => {
+    setType("hardwareWallet")
   }, [])
 
   return <>
@@ -28,6 +33,11 @@ export function WalletCreatorDialog(props: {}) {
       opened={opened && type === "privateKey"}
       close={close}>
       <StandaloneWalletCreatorDialog />
+    </Dialog>
+    <Dialog
+      opened={opened && type === "hardwareWallet"}
+      close={close}>
+      <HardwareWalletCreatorDialog />
     </Dialog>
     <Dialog.Title close={close}>
       New wallet
@@ -46,6 +56,12 @@ export function WalletCreatorDialog(props: {}) {
         <div className={`${Button.Shrinker.className} flex-col`}>
           <Outline.WalletIcon className="s-md" />
           <span>Private key</span>
+        </div>
+      </Button.Contrast>
+      <Button.Contrast className="flex-1 whitespace-nowrap p-4 rounded-xl" onClick={onHardwareWalletClick}>
+        <div className={`${Button.Shrinker.className} flex-col`}>
+          <Outline.CpuChipIcon className="s-md" />
+          <span>Hardware wallet</span>
         </div>
       </Button.Contrast>
     </div>
